@@ -36,6 +36,9 @@ def inject(obj):
 
         return obj
     elif isinstance(obj, type(inject)):
+        if obj.__defaults__ is None:
+            return obj
+
         obj.__dict__["__initial_defaults__"] = obj.__defaults__
         obj.__defaults__ = ()
 
@@ -45,7 +48,7 @@ def inject(obj):
 
         return wrapper
     else:
-        raise ValueError("inject decorator must be applied only to classes, it's methods and functions.")
+        raise ValueError(f"inject decorator must be applied only to classes, it's methods and functions, but {obj} of type {type(obj)} provided")
 
 def injection(injection_type: InjectionType):
     def decorator(cls):
