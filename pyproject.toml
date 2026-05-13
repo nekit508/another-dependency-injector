@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "another_dependency_injector"
-version = "0.1.3"
+version = "0.1.4"
 authors = [
     { name="nekit508", email="lastp508@gmail.com" },
 ]
