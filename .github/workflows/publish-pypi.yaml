@@ -1,10 +1,13 @@
-name: Publish to Test PyPI (twine)
+name: Publish to PyPI (twine)
 
 on:
   workflow_dispatch:
+  push:
+    tags:
+      - "v*"
 
 jobs:
-  publish-test:
+  publish-prod:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -23,9 +26,9 @@ jobs:
       - name: Build package
         run: python -m build
 
-      - name: Upload to Test PyPI
+      - name: Upload to PyPI
         env:
           TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.TEST_PYPI_TOKEN }}
-          TWINE_REPOSITORY_URL: https://test.pypi.org/legacy/
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+          TWINE_REPOSITORY: pypi
         run: python -m twine upload dist/*
