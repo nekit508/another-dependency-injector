@@ -3,21 +3,22 @@ requires = ["hatchling>=1.26"]
 build-backend = "hatchling.build"
 
 [project]
-name = "another-denendecy-injector"
-version = "0.0.1"
+name = "another_dependency_injector"
+version = "0.1.2"
 authors = [
-  { name="nekit508", email="lastp508@gmail.com" },
+    { name="nekit508", email="lastp508@gmail.com" },
 ]
 description = "Краткое описание вашего пакета"
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.7"
 classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
     "Operating System :: OS Independent",
+    "Programming Language :: Python"
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/ваш-профиль/ваш-проект"
-"Bug Tracker" = "https://github.com/ваш-профиль/ваш-проект/issues"
+"Homepage" = "https://github.com/nekit508/another-dependency-injector"
+"Bug Tracker" = "https://github.com/nekit508/another-dependency-injector/issues"

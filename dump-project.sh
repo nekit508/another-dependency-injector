@@ -1,0 +1,1 @@
+(find . -type f ! -name "*.pyc" ! -name "files.txt" ! -path "*/.venv/*" ! -path "*/.pytest_cache/*" ! -path "*/__pycache__/*" ! -path "*/.git/*" -print0 | while IFS= read -r -d '' f; do echo "[${f#./}]:"; cat "$f"; echo; done) > files.txt

@@ -1,17 +1,8 @@
 import importlib
 import pkgutil
 
-from anno import injections, Type, wires
-from provider import Provider, Singleton
-
-class StaticWrapper[T]:
-    obj: T
-
-    def __init__(self, obj: T):
-        self.obj = obj
-
-    def get(self) -> T:
-        return self.obj
+from ..wiring.anno import injections, InjectionType, wires
+from .provider import Provider, Singleton, ValueProvider
 
 class Container:
     providers: list[Provider]
@@ -22,12 +13,15 @@ class Container:
     def provider(self, provider: Provider):
         self.providers.append(provider)
 
-    def singleton(self, cls, *args, **kwargs):
-        self.provider(Singleton(cls, args, kwargs))
+    def singleton(self, cls):
+        self.provider(Singleton(cls))
 
-    def resolve_provider[T](self, cls: type[T]) -> Provider[T]:
+    def value[T](self, key: str, value: T):
+        self.provider(ValueProvider(key, value))
+
+    def resolve_provider[T](self, cls) -> Provider[T]:
         for provider in self.providers:
-            if issubclass(provider.cls, cls):
+            if provider.can_provide(cls):
                 return provider
 
         raise RuntimeError(f"Unable to find provider of {cls}")
@@ -41,7 +35,7 @@ class Container:
 
         for injection in injections:
             match injection.injection_type:
-                case Type.SINGLETON:
+                case InjectionType.SINGLETON:
                     self.singleton(injection.cls)
 
         for wire in wires:

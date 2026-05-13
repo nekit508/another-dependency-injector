@@ -1,9 +1,14 @@
-from container import Container
-from test.logic import handle
-import test
+from another_dependency_injector.providing import Container
 
+import test
+from test.test import *
 
 if __name__ == "__main__":
-    container = Container()
-    container.wire(test)
-    handle("jkfdg")
+    cont = Container()
+
+    cont.value("config.value", "value")
+
+    cont.wire(test)
+
+    aa = AA()
+    print(aa, aa.b, aa.b.value)
