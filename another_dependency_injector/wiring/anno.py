@@ -1,8 +1,5 @@
 import enum
 
-injections: list[Injection] = []
-wires: list[Wire]  =[]
-
 
 class InjectionType(enum.Enum):
     SINGLETON = 0
@@ -26,6 +23,9 @@ class Wire:
 
     def connect(self, provider):
         self.provider = provider
+
+injections: list[Injection] = []
+wires: list[Wire] = []
 
 def inject(obj):
     if type(obj) is type:
